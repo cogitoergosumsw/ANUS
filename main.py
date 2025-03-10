@@ -7,12 +7,19 @@ import argparse
 import sys
 import os
 import yaml
+import os
+import yaml
 from anus.core.orchestrator import AgentOrchestrator
 from anus.ui.cli import CLI
 
 def main():
     """Main entry point for the Anus AI agent"""
     parser = argparse.ArgumentParser(description="Anus AI - Autonomous Networked Utility System")
+    
+    # Add command as first positional argument
+    parser.add_argument("command", nargs="?", default="interactive", 
+                      help="Command to execute (init, run, interactive)")
+    
     
     # Add command as first positional argument
     parser.add_argument("command", nargs="?", default="interactive", 
@@ -30,6 +37,11 @@ def main():
         create_config()
         return
     
+    # Handle the init command
+    if args.command == "init":
+        create_config()
+        return
+    
     # Initialize the CLI
     cli = CLI(verbose=args.verbose)
     
@@ -40,6 +52,9 @@ def main():
     orchestrator = AgentOrchestrator(config_path=args.config)
     
     # If task is provided as argument, execute it
+    if args.task or args.command == "run":
+        task = args.task if args.task else args.command
+        result = orchestrator.execute_task(task, mode=args.mode)
     if args.task or args.command == "run":
         task = args.task if args.task else args.command
         result = orchestrator.execute_task(task, mode=args.mode)

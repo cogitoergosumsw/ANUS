@@ -9,6 +9,7 @@ This module contains language model implementations and utilities:
 
 from anus.models.base import BaseModel
 from anus.models.openai_model import OpenAIModel
+from anus.models.gemini_model import GeminiModel
 from anus.models.model_router import ModelRouter
 
-__all__ = ["BaseModel", "OpenAIModel", "ModelRouter"] 
+__all__ = ["BaseModel", "OpenAIModel", "GeminiModel", "ModelRouter"]
