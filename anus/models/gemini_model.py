@@ -12,7 +12,7 @@ from pydantic import Field
 from google import genai 
 from google.genai import types as genai_types
 
-from anus.models.base.base_model import BaseModel, ModelResponse, ToolCall
+from anus.models.base.base_model import BaseModel, ToolCall
 
 class GeminiModel(BaseModel):
     """
