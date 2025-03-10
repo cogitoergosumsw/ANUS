@@ -20,22 +20,12 @@ def main():
     parser.add_argument("command", nargs="?", default="interactive", 
                       help="Command to execute (init, run, interactive)")
     
-    
-    # Add command as first positional argument
-    parser.add_argument("command", nargs="?", default="interactive", 
-                      help="Command to execute (init, run, interactive)")
-    
     parser.add_argument("--config", type=str, default="config.yaml", help="Path to configuration file")
     parser.add_argument("--mode", type=str, default="single", choices=["single", "multi"], help="Agent mode")
     parser.add_argument("--task", type=str, help="Task description")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     
     args = parser.parse_args()
-    
-    # Handle the init command
-    if args.command == "init":
-        create_config()
-        return
     
     # Handle the init command
     if args.command == "init":
@@ -52,9 +42,6 @@ def main():
     orchestrator = AgentOrchestrator(config_path=args.config)
     
     # If task is provided as argument, execute it
-    if args.task or args.command == "run":
-        task = args.task if args.task else args.command
-        result = orchestrator.execute_task(task, mode=args.mode)
     if args.task or args.command == "run":
         task = args.task if args.task else args.command
         result = orchestrator.execute_task(task, mode=args.mode)
